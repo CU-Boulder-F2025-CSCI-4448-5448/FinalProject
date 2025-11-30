@@ -1,5 +1,7 @@
 package ems;
 
+import ems.PayStrategies.SalaryStrategy;
+
 import java.sql.SQLException;
 
 public class Employee {
@@ -12,7 +14,11 @@ public class Employee {
     private final String department;
     private final String position;
 
-    public Employee(String name, double employeeID, String address, double age, double salary, String phoneNumber, String department, String position) {
+    private SalaryStrategy salaryStrategy;
+
+    public Employee(String name, double employeeID, String address,
+                    double age, double salary, String phoneNumber,
+                    String department, String position) {
         this.name = name;
         this.employeeID = employeeID;
         this.address = address;
@@ -47,6 +53,12 @@ public class Employee {
     public double getAge() {
         return age;
     }
+    public SalaryStrategy getSalaryStrategy() {
+        return salaryStrategy;
+    }
+    public void setSalaryStrategy(SalaryStrategy salaryStrategy) {
+        this.salaryStrategy = salaryStrategy;
+    }
 
     private Employee(EmployeeBuilder employeeBuilder) {
         this.name = employeeBuilder.name;
@@ -57,6 +69,7 @@ public class Employee {
         this.phoneNumber = employeeBuilder.phoneNumber;
         this.department = employeeBuilder.department;
         this.position = employeeBuilder.position;
+        this.salaryStrategy = employeeBuilder.salaryStrategy;
     }
 
     public static class EmployeeBuilder {
@@ -69,6 +82,8 @@ public class Employee {
         private String phoneNumber = "";
         private String department = "";
         private String position = "";
+
+        private SalaryStrategy salaryStrategy = null;
 
         public EmployeeBuilder(String name, double employeeID) {
             this.name = name;
@@ -102,6 +117,11 @@ public class Employee {
 
         public EmployeeBuilder employeePosition(String position) {
             this.position = position;
+            return this;
+        }
+
+        public EmployeeBuilder employeeSalaryStrategy(SalaryStrategy salaryStrategy) {
+            this.salaryStrategy = salaryStrategy;
             return this;
         }
 
