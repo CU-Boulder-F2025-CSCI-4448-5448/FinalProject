@@ -1,5 +1,8 @@
 package ems;
 
+//Design Pattern: Factory
+//Employee factory uses the factory pattern to create types
+//we have different employee types ie manager, engineer, intern
 public class EmployeeFactory {
 
     public Employee createSoftwareEngineer(String name, double id) {

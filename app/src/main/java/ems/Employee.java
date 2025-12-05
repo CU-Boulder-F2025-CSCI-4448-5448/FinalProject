@@ -4,6 +4,10 @@ import ems.PayStrategies.SalaryStrategy;
 
 import java.sql.SQLException;
 
+//Design Pattern: Builder
+//EmployeeBuilder implements the Builder Pattern
+//Allows step by step create of Employee Objects
+
 public class Employee {
     private final String name;
     private final double employeeID;

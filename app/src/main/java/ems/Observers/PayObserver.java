@@ -1,6 +1,7 @@
 package ems.Observers;
+
 import ems.Employee;
 
-public class PayObservers {
-    void onPayCalculated(Employee employee, double amount){}
+public interface PayObserver {
+    void onPayCalculated(Employee employee, double amount);
 }

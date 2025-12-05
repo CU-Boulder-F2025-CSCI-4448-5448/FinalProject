@@ -2,15 +2,15 @@ package ems.PayStrategies;
 
 import ems.Employee;
 
-public class BonusPay implements SalaryStrategy {
-    private final double bonusAmmount;
+public class BonusPayStrategy implements SalaryStrategy {
+    private final double bonusAmount;
 
-    public BonusPayStrategy(double bonusAmmount) {
-        this.bonusAmmount = bonusAmmount;
+    public BonusPayStrategy(double bonusAmount) {
+        this.bonusAmount = bonusAmount;
     }
 
     @Override
     public double calculatePay(Employee employee) {
-        return (employee.getSalary() / 12) + bonusAmmount;
+        return (employee.getSalary() / 12) + bonusAmount;
     }
 }
