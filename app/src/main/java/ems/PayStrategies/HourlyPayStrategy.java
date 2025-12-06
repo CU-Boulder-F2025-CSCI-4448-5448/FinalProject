@@ -15,3 +15,4 @@ public class HourlyPayStrategy implements SalaryStrategy {
         return employee.getSalary() * totalMonthlyHoursWorked;
     }
 }
+//time stamp comment ignore
