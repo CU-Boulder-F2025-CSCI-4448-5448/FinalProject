@@ -37,11 +37,17 @@ public class Database {
             CREATE TABLE IF NOT EXISTS employees (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255),
+                employeeID DOUBLE,
+                address VARCHAR(255),
+                age DOUBLE,
                 salary DOUBLE,
+                phoneNumber VARCHAR(50),
                 department VARCHAR(255),
-                title VARCHAR(255)
+                position VARCHAR(255),
+                salaryStrategy VARCHAR(255)
             )
         """;
+
 
         //uses instance inside InitizedDatabase
         try (Connection conn = getConnection()) {

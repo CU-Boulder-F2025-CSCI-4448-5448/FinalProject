@@ -8,18 +8,18 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseTest {
-
+    // Worked with chatgpt to make sure sql database comes up and runs correctly
     @Test
     void testDatabaseInitialization() throws SQLException {
-        // Attempt to run the schema creation
-        Database Database = null;
-        Database.initializeDatabase();
+        Database db = Database.getInstance();
+        db.initializeDatabase();
 
-        // Try connecting and checking if the table exists
-        try (Connection conn = Database.getConnection()) {
+        try (Connection conn = db.getConnection()) {
+            // H2 stores table names in uppercase unless quoted
             ResultSet rs = conn.getMetaData().getTables(null, null, "EMPLOYEES", null);
 
             assertTrue(rs.next(), "Employees table should exist after initialization.");
         }
     }
 }
+
