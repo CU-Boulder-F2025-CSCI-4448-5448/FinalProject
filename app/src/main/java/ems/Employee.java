@@ -63,6 +63,7 @@ public class Employee {
     public void setSalaryStrategy(SalaryStrategy salaryStrategy) {
         this.salaryStrategy = salaryStrategy;
     }
+    public double calculatePay() { return salaryStrategy.calculatePay(this);}
 
     private Employee(EmployeeBuilder employeeBuilder) {
         this.name = employeeBuilder.name;

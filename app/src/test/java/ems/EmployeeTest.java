@@ -1,5 +1,7 @@
 package ems;
 
+import ems.PayStrategies.SalaryPayStrategy;
+import ems.PayStrategies.SalaryStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
@@ -21,6 +23,7 @@ public class EmployeeTest {
         Employee bob = new Employee.EmployeeBuilder("Joe", 1001)
                 .employeeDepartment("Engineering")
                 .employeeSalary(75000)
+                .employeeSalaryStrategy(new SalaryPayStrategy())
                 .buildEmployee();
 
         assertTrue(Objects.equals(bob.getName(), "Joe"));
@@ -29,5 +32,7 @@ public class EmployeeTest {
         assertTrue(Objects.equals(bob.getDepartment(), "Engineering"));
         assertTrue(bob.getAge() == 0);
         assertTrue(Objects.equals(bob.getPosition(), ""));
+        assertTrue(bob.getSalaryStrategy() instanceof SalaryPayStrategy);
+        assertTrue(bob.calculatePay() == (bob.getSalary()/12));
     }
 }

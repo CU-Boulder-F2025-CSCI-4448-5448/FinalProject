@@ -1,5 +1,8 @@
 package ems;
 
+import ems.PayStrategies.HourlyPayStrategy;
+import ems.PayStrategies.SalaryPayStrategy;
+
 //Design Pattern: Factory
 //Employee factory uses the factory pattern to create types
 //we have different employee types ie manager, engineer, intern
@@ -10,6 +13,7 @@ public class EmployeeFactory {
                 .employeeDepartment("Engineering")
                 .employeePosition("Software Engineer")
                 .employeeSalary(105000)
+                .employeeSalaryStrategy(new SalaryPayStrategy())
                 .buildEmployee();
     }
 
@@ -18,6 +22,7 @@ public class EmployeeFactory {
                 .employeeDepartment("Management")
                 .employeePosition("Project Manager")
                 .employeeSalary(120000)
+                .employeeSalaryStrategy(new SalaryPayStrategy())
                 .buildEmployee();
     }
 
@@ -26,6 +31,7 @@ public class EmployeeFactory {
                 .employeeDepartment("Engineering")
                 .employeePosition("Intern")
                 .employeeSalary(20)
+                .employeeSalaryStrategy(new HourlyPayStrategy(40))
                 .buildEmployee();
     }
 
@@ -34,6 +40,7 @@ public class EmployeeFactory {
                 .employeeDepartment("Engineering")
                 .employeePosition("Network Engineer")
                 .employeeSalary(115000)
+                .employeeSalaryStrategy(new SalaryPayStrategy())
                 .buildEmployee();
     }
 
