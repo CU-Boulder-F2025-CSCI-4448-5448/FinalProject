@@ -3,8 +3,12 @@ package ems;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-//Design Pattern: Singleton
+import ems.Observers.DatabaseObserver;
+
+//Design Pattern: Singleton and Observer
 //The Database class uses the Singleton pattern
 //One one instance of the database can exist
 //Database.getInstance() ensures database across the app consistently
@@ -17,8 +21,10 @@ public class Database {
     private static final String USER = "sa";
     private static final String PASS = "";
 
-    //Private constructor (Singleton)
-    private Database () {}
+
+
+    // initializing an object for Observer support
+    private final List<DatabaseObserver> observers = new ArrayList<>();
 
     //Private Static Instance
     public static synchronized Database getInstance() {
@@ -28,9 +34,42 @@ public class Database {
         return instance;
     }
 
+    //Private constructor (Singleton)
+    private Database () {}
+
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASS);
     }
+
+    //apis for the observer
+    public void addObserver(DatabaseObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(DatabaseObserver observer) {
+        observers.remove(observer);
+    }
+
+    // package-private helpers so DatabaseInteraction can call them
+    void notifyEmployeeAdded(ems.Employee employee) {
+        for (DatabaseObserver o : observers) {
+            o.onEmployeeAdded(employee);
+        }
+    }
+
+    public void notifyEmployeeFetched(Employee employee) {
+        for (DatabaseObserver o : observers) {
+            o.onEmployeeFetched(employee);
+        }
+    }
+
+    public void notifyAllEmployeesFetched(List<Employee> employees) {
+        for (DatabaseObserver o : observers) {
+            o.onAllEmployeesFetched(employees);
+        }
+    }
+
+
 
     public void initializeDatabase() throws SQLException {
         String sql = """

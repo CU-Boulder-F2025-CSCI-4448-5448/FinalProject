@@ -29,8 +29,11 @@ public class DatabaseInteraction {
             stmt.setString(8, employee.getPosition());
             stmt.setString(9, employee.getSalaryStrategy().getClass().getSimpleName());
 
-            stmt.executeUpdate();
-            System.out.println("Employee added!");
+            int rowsAdded = stmt.executeUpdate();
+            if (rowsAdded > 0) {
+                database.notifyEmployeeAdded(e);
+            }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
