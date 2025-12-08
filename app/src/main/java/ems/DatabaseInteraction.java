@@ -9,7 +9,7 @@ public class DatabaseInteraction {
     private final Database database = Database.getInstance();
 
     // ADD employee
-    public void addEmployee(Employee e) {
+    public void addEmployee(Employee employee) {
         String sql = """
             INSERT INTO employees
             (name, employeeID, address, age, salary, phoneNumber, department, position, salaryStrategy)
@@ -19,15 +19,15 @@ public class DatabaseInteraction {
         try (Connection conn = database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, e.getName());
-            stmt.setDouble(2, e.getEmployeeID());
-            stmt.setString(3, e.getAddress());
-            stmt.setDouble(4, e.getAge());
-            stmt.setDouble(5, e.getSalary());
-            stmt.setString(6, e.getPhoneNumber());
-            stmt.setString(7, e.getDepartment());
-            stmt.setString(8, e.getPosition());
-            stmt.setString(9, e.getSalaryStrategy().getClass().getSimpleName());
+            stmt.setString(1, employee.getName());
+            stmt.setDouble(2, employee.getEmployeeID());
+            stmt.setString(3, employee.getAddress());
+            stmt.setDouble(4, employee.getAge());
+            stmt.setDouble(5, employee.getSalary());
+            stmt.setString(6, employee.getPhoneNumber());
+            stmt.setString(7, employee.getDepartment());
+            stmt.setString(8, employee.getPosition());
+            stmt.setString(9, employee.getSalaryStrategy().getClass().getSimpleName());
 
             stmt.executeUpdate();
             System.out.println("Employee added!");
@@ -47,7 +47,7 @@ public class DatabaseInteraction {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Employee e = new Employee.EmployeeBuilder(
+                Employee employee = new Employee.EmployeeBuilder(
                         rs.getString("name"),
                         rs.getDouble("employeeID"))
                         .employeeAddress(rs.getString("address"))
@@ -58,7 +58,7 @@ public class DatabaseInteraction {
                         .employeePosition(rs.getString("position"))
                         .buildEmployee();
 
-                return e;
+                return employee;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -77,7 +77,7 @@ public class DatabaseInteraction {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Employee e = new Employee.EmployeeBuilder(
+                Employee employee = new Employee.EmployeeBuilder(
                         rs.getString("name"),
                         rs.getDouble("employeeID"))
                         .employeeAddress(rs.getString("address"))
@@ -88,7 +88,7 @@ public class DatabaseInteraction {
                         .employeePosition(rs.getString("position"))
                         .buildEmployee();
 
-                list.add(e);
+                list.add(employee);
             }
 
         } catch (SQLException ex) {
