@@ -33,8 +33,11 @@ public class DatabaseInteraction {
             stmt.setString(9, employee.getSalaryType() != null ? employee.getSalaryType().name() : null);
 
 
-            stmt.executeUpdate();
-            System.out.println("Employee added!");
+            int rowsAdded = stmt.executeUpdate();
+            if (rowsAdded > 0) {
+                database.notifyEmployeeAdded(e);
+            }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
