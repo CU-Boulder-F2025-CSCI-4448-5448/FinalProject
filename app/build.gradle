@@ -38,8 +38,13 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'ems.Main'
+    mainClass = 'ems.EMS_Demo'
 
+}
+
+tasks.named('run') {
+    // This lets your app read from the terminal (Scanner(System.in))
+    standardInput = System.in
 }
 
 tasks.named('test') {
