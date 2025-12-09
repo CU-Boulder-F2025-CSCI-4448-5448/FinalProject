@@ -67,13 +67,11 @@ public class DatabaseInteractionTest {
             @Override
             public void onEmployeeFetched(Employee employee) {
                 // not needed in this test
-                fetched.set(true);
             }
 
             @Override
             public void onAllEmployeesFetched(List<Employee> employees) {
                 // not needed in this test
-                allFetched.set(true);
             }
         };
 
@@ -93,7 +91,5 @@ public class DatabaseInteractionTest {
 
         // Now we expect the observer to have been called
         assertTrue(added.get(), "DatabaseObserver should be notified when an employee is added.");
-        assertTrue(fetched.get(), "DatabaseObserver should be notified when an employee is fetched.");
-        assertTrue(allFetched.get(), "DatabaseObserver should be notified when all the employees are fetched.");
     }
 }

@@ -9,7 +9,11 @@ import java.util.List;
 
 public class DatabaseInteraction {
 
-    private final Database database = Database.getInstance();
+    private final Database database;
+
+    public DatabaseInteraction() {
+    this.database = Database.getInstance();
+    }
 
     // ADD employee
     public void addEmployee(Employee employee) {
@@ -34,8 +38,11 @@ public class DatabaseInteraction {
 
 
             int rowsAdded = stmt.executeUpdate();
+            System.out.println(">>> rowsAdded in addEmployee = " + rowsAdded);
+
             if (rowsAdded > 0) {
-                database.notifyEmployeeAdded(employee);
+                System.out.println(">>> calling database.notifyEmployeeAdded(...)");
+                this.database.notifyEmployeeAdded(employee);
             }
 
         } catch (SQLException ex) {
@@ -72,7 +79,12 @@ public class DatabaseInteraction {
                     employee.setSalaryStrategy(PayStrategyFactory.fromType(type));
                 }
 
+                database.notifyEmployeeAdded(employee);
                 return employee;
+
+            } else {
+                database.notifyEmployeeFetched(null);
+                return null;
             }
 
         } catch (SQLException ex) {
@@ -85,7 +97,7 @@ public class DatabaseInteraction {
     // GET ALL employees
     public List<Employee> getAllEmployees() {
         String sql = "SELECT * FROM employees";
-        List<Employee> list = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
 
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
@@ -110,14 +122,15 @@ public class DatabaseInteraction {
                     employee.setSalaryStrategy(PayStrategyFactory.fromType(type));
                 }
 
-                list.add(employee);
+                employees.add(employee);
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return list;
+        database.notifyAllEmployeesFetched(employees);
+        return employees;
     }
 
 }

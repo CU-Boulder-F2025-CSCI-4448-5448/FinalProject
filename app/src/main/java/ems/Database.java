@@ -52,6 +52,7 @@ public class Database {
 
     // package-private helpers so DatabaseInteraction can call them
     void notifyEmployeeAdded(ems.Employee employee) {
+        System.out.println(">>> notifyEmployeeAdded called, observers = " + observers.size());
         for (DatabaseObserver o : observers) {
             o.onEmployeeAdded(employee);
         }
