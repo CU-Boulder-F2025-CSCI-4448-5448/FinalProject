@@ -6,25 +6,31 @@ import ems.PayStrategies.*;
 import java.sql.SQLException;
 
 
-public class Main {
+public class EMS_Demo {
     public static void main(String[] args) throws SQLException {
 
         //Initialze the Database with Singleton Pattern
-        Database.getInstance().initializeDatabase();
+        DatabaseInteraction database;
+        Database employeeDB = Database.getInstance();
+        employeeDB.initializeDatabase();
+        database = new DatabaseInteraction();
 
         //Observer
         PayrollSystem payroll = new PayrollSystem();
         payroll.addObserver(new EmailNotifer());
         payroll.addObserver(new AccountingLogger());
 
+
         //Salary Strategy
-        Employee e = new Employee.EmployeeBuilder("Jose", 101)
+        Employee Jose = new Employee.EmployeeBuilder("Jose", 101)
                 .employeeSalary(30000)
                 .employeeSalaryStrategy(new SalaryPayStrategy())
                 .buildEmployee();
+        database.addEmployee(Jose);
+
         System.out.println("SalaryPayStrategy");
 
-        payroll.calculateMonthlyPay(e);
+        payroll.calculateMonthlyPay(Jose);
 
         //Bonus Pay Strategy
         Employee bonusEmployee = new Employee.EmployeeBuilder("Elmo", 102)

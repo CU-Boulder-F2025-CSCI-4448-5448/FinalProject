@@ -35,7 +35,7 @@ public class DatabaseInteraction {
 
             int rowsAdded = stmt.executeUpdate();
             if (rowsAdded > 0) {
-                database.notifyEmployeeAdded(e);
+                database.notifyEmployeeAdded(employee);
             }
 
         } catch (SQLException ex) {
