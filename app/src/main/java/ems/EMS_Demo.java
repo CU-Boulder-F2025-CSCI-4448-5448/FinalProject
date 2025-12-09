@@ -46,6 +46,10 @@ public class EMS_Demo {
                 .buildEmployee();
         System.out.println("OvertimePayStrategy");
         payroll.calculateMonthlyPay(overtimeEmployee);
+
+        EmployeeFactory employeeFactory = new EmployeeFactory();
+        Employee travis = employeeFactory.createNetworkEngineer("Travis", 1001);
+        database.addEmployee(travis);
     }
 
 

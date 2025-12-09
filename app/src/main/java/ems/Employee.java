@@ -58,6 +58,7 @@ public class Employee {
     public double getAge() {
         return age;
     }
+
     public SalaryStrategy getSalaryStrategy() {
         return salaryStrategy;
     }

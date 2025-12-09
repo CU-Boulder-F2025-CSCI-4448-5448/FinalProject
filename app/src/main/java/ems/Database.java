@@ -10,7 +10,7 @@ import ems.Observers.DatabaseObserver;
 
 //Design Pattern: Singleton and Observer
 //The Database class uses the Singleton pattern
-//One one instance of the database can exist
+//One instance of the database can exist
 //Database.getInstance() ensures database across the app consistently
 
 public class Database {
