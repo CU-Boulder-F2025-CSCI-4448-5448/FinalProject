@@ -16,4 +16,7 @@ public class CommissionPayStrategy implements SalaryStrategy {
         return employee.getSalary() + (sales * commissionRate);
     }
 
+    @Override
+    public SalaryType getSalaryType() {return SalaryType.COMMISSION;}
+
 }

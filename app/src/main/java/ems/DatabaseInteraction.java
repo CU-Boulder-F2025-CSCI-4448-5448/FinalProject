@@ -1,5 +1,8 @@
 package ems;
 
+import ems.PayStrategies.PayStrategyFactory;
+import ems.PayStrategies.SalaryType;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ public class DatabaseInteraction {
     public void addEmployee(Employee employee) {
         String sql = """
             INSERT INTO employees
-            (name, employeeID, address, age, salary, phoneNumber, department, position, salaryStrategy)
+            (name, employeeID, address, age, salary, phoneNumber, department, position, salaryType)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
@@ -27,7 +30,8 @@ public class DatabaseInteraction {
             stmt.setString(6, employee.getPhoneNumber());
             stmt.setString(7, employee.getDepartment());
             stmt.setString(8, employee.getPosition());
-            stmt.setString(9, employee.getSalaryStrategy().getClass().getSimpleName());
+            stmt.setString(9, employee.getSalaryType() != null ? employee.getSalaryType().name() : null);
+
 
             stmt.executeUpdate();
             System.out.println("Employee added!");
@@ -58,8 +62,16 @@ public class DatabaseInteraction {
                         .employeePosition(rs.getString("position"))
                         .buildEmployee();
 
+                // Recreate SalaryStrategy from enum
+                String typeStr = rs.getString("salaryType");
+                if (typeStr != null) {
+                    SalaryType type = SalaryType.valueOf(typeStr);
+                    employee.setSalaryStrategy(PayStrategyFactory.fromType(type));
+                }
+
                 return employee;
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -88,6 +100,13 @@ public class DatabaseInteraction {
                         .employeePosition(rs.getString("position"))
                         .buildEmployee();
 
+                // Recreate SalaryStrategy
+                String typeStr = rs.getString("salaryType");
+                if (typeStr != null) {
+                    SalaryType type = SalaryType.valueOf(typeStr);
+                    employee.setSalaryStrategy(PayStrategyFactory.fromType(type));
+                }
+
                 list.add(employee);
             }
 
@@ -97,4 +116,5 @@ public class DatabaseInteraction {
 
         return list;
     }
+
 }

@@ -18,4 +18,7 @@ public class OvertimePayStrategy implements SalaryStrategy{
 
         return regularPay * rate + (overtimePay * rate * 1.5);
     }
+
+    @Override
+    public SalaryType getSalaryType() {return SalaryType.OVERTIME;}
 }

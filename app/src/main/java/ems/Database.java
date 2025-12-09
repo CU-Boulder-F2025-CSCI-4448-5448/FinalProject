@@ -44,7 +44,7 @@ public class Database {
                 phoneNumber VARCHAR(50),
                 department VARCHAR(255),
                 position VARCHAR(255),
-                salaryStrategy VARCHAR(255)
+                salaryType VARCHAR(255)
             )
         """;
 

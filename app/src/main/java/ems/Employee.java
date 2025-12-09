@@ -1,6 +1,7 @@
 package ems;
 
 import ems.PayStrategies.SalaryStrategy;
+import ems.PayStrategies.SalaryType;
 
 import java.sql.SQLException;
 
@@ -64,6 +65,9 @@ public class Employee {
         this.salaryStrategy = salaryStrategy;
     }
     public double calculatePay() { return salaryStrategy.calculatePay(this);}
+    public SalaryType getSalaryType() {
+        return salaryStrategy != null ? salaryStrategy.getSalaryType() : null;
+    }
 
     private Employee(EmployeeBuilder employeeBuilder) {
         this.name = employeeBuilder.name;

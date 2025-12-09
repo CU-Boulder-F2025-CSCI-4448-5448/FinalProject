@@ -7,4 +7,7 @@ public class SalaryPayStrategy implements SalaryStrategy {
     public double calculatePay(Employee employee) {
         return employee.getSalary() / 12;
     }
+
+    @Override
+    public SalaryType getSalaryType() {return SalaryType.SALARY;}
 }

@@ -13,4 +13,7 @@ public class BonusPayStrategy implements SalaryStrategy {
     public double calculatePay(Employee employee) {
         return (employee.getSalary() / 12) + bonusAmount;
     }
+
+    @Override
+    public SalaryType getSalaryType() {return SalaryType.BONUS;}
 }

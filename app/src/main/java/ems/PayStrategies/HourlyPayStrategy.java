@@ -14,5 +14,8 @@ public class HourlyPayStrategy implements SalaryStrategy {
     public double calculatePay(Employee employee){
         return employee.getSalary() * totalMonthlyHoursWorked;
     }
+
+    @Override
+    public SalaryType getSalaryType() {return SalaryType.HOURLY;}
 }
 //time stamp comment ignore

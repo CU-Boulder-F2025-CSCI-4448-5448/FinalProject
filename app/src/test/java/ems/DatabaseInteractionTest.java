@@ -40,5 +40,7 @@ public class DatabaseInteractionTest {
         assertEquals("John Doe", retrieved.getName());
         assertEquals(55000, retrieved.getSalary());
         assertEquals("IT", retrieved.getDepartment());
+        assertTrue(retrieved.getSalaryStrategy() instanceof SalaryPayStrategy);
+        assertTrue(retrieved.calculatePay() == (retrieved.getSalary()/12));
     }
 }
