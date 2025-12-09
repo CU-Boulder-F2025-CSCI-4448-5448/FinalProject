@@ -38,10 +38,10 @@ public class DatabaseInteraction {
 
 
             int rowsAdded = stmt.executeUpdate();
-            System.out.println(">>> rowsAdded in addEmployee = " + rowsAdded);
+            System.out.println(" rowsAdded in addEmployee = " + rowsAdded);
 
             if (rowsAdded > 0) {
-                System.out.println(">>> calling database.notifyEmployeeAdded(...)");
+                System.out.println("calling database.notifyEmployeeAdded(...)");
                 this.database.notifyEmployeeAdded(employee);
             }
 
